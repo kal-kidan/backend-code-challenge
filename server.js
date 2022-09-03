@@ -3,8 +3,9 @@ const httpStatus = require("http-status");
 const cors = require("cors");
 const { errorConverter, errorHandler } = require("./middlewares/error");
 const { authLimiter } = require("./middlewares/rateLimiter");
+const auth = require("./middlewares/auth");
 const config = require("./config/config");
-const routes = require("./routes");
+const routes = require("./routes/index.route");
 const ApiError = require("./utils/ApiError");
 const logger = require("./config/logger");
 
@@ -19,8 +20,8 @@ if (config.env === "production") {
   app.use("/", authLimiter);
 }
 
+app.use(auth);
 app.use("/", routes);
-
 app.use((req, res, next) => {
   next(new ApiError(httpStatus.NOT_FOUND, "Not found"));
 });

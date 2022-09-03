@@ -5,7 +5,7 @@ const controller = require("../controllers/index.controller");
 
 const router = express.Router();
 
-router.post(
+router.get(
   "/cities-by-tag",
   validate(validation.getCitiesByTag),
   controller.getCitiesByTag

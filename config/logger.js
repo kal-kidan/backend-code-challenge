@@ -3,8 +3,7 @@ const config = require("./config");
 
 const { combine, printf } = format;
 const winstonFormat = printf(
-  ({ level, message, timestamp, stack }) =>
-    `${timestamp} ${level}: ${stack || message}`
+  ({ level, message, timestamp }) => `${timestamp} ${level}: ${message}`
 );
 const { timestamp } = format;
 const logger = createLogger({
