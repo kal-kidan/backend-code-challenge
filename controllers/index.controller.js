@@ -26,10 +26,15 @@ const getCitiesWithInDistance = catchAsync(async (req, res) => {
 const getCitiesWithInDistanceResult = catchAsync(async (req, res) => {
   await services.getCitiesWithInDistanceResult(req, res);
 });
+const getAllCities = catchAsync(async (req, res) => {
+  const readStream = services.getAllCities();
+  readStream.pipe(res);
+});
 
 module.exports = {
   getCitiesByTag,
   getDistance,
   getCitiesWithInDistance,
   getCitiesWithInDistanceResult,
+  getAllCities,
 };

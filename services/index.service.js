@@ -5,9 +5,8 @@ const { Worker, parentPort } = require("worker_threads");
 const { calculateDistance } = require("../utils/distance");
 const ApiError = require("../utils/ApiError");
 const config = require("../config/config");
-const address = JSON.parse(
-  fs.readFileSync(path.join(__dirname, "..", "addresses.json"), "utf8")
-);
+const addressFilePath = path.join(__dirname, "..", "addresses.json");
+const address = JSON.parse(fs.readFileSync(addressFilePath), "utf8");
 
 const getCitiesByTag = async (tag, isActive) => {
   const cities = address.filter((obj) => {
@@ -66,9 +65,15 @@ const getCitiesWithInDistanceResult = async (req, res) => {
   }
 };
 
+const getAllCities = () => {
+  const readStream = fs.createReadStream(addressFilePath);
+  return readStream;
+};
+
 module.exports = {
   getCitiesByTag,
   getDistance,
   getCitiesWithInDistance,
   getCitiesWithInDistanceResult,
+  getAllCities,
 };

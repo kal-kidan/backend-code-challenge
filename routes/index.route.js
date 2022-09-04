@@ -27,4 +27,6 @@ router.get(
   "/area-result/2152f96f-50c7-4d76-9e18-f7033bd14428",
   controller.getCitiesWithInDistanceResult
 );
+
+router.get("/all-cities", controller.getAllCities);
 module.exports = router;
