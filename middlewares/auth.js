@@ -4,7 +4,7 @@ const auth = (req, res, next) => {
   if (!req.headers.authorization) {
     throw new ApiError(httpStatus.UNAUTHORIZED, "Please authenticate");
   }
-  const token = req.headers.authorization.replace("Bearer ", "");
+  const token = req.headers.authorization.replace("bearer ", "");
   if (token === "dGhlc2VjcmV0dG9rZW4=") {
     next();
   } else {

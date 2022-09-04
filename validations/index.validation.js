@@ -6,6 +6,13 @@ const getCitiesByTag = {
   }),
 };
 
+const getDistance = {
+  query: Joi.object().keys({
+    from: Joi.string().required(),
+    to: Joi.string().required(),
+  }),
+};
 module.exports = {
   getCitiesByTag,
+  getDistance,
 };

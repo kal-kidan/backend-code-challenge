@@ -10,5 +10,10 @@ router.get(
   validate(validation.getCitiesByTag),
   controller.getCitiesByTag
 );
+router.get(
+  "/distance",
+  validate(validation.getDistance),
+  controller.getDistance
+);
 
 module.exports = router;

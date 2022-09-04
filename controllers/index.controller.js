@@ -10,6 +10,12 @@ const getCitiesByTag = catchAsync(async (req, res) => {
   res.status(httpStatus.OK).send(cities);
 });
 
+const getDistance = catchAsync(async (req, res) => {
+  const distance = await services.getDistance(req.query.from, req.query.to);
+  res.status(httpStatus.OK).send(distance);
+});
+
 module.exports = {
   getCitiesByTag,
+  getDistance,
 };
