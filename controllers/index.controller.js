@@ -15,7 +15,21 @@ const getDistance = catchAsync(async (req, res) => {
   res.status(httpStatus.OK).send(distance);
 });
 
+const getCitiesWithInDistance = catchAsync(async (req, res) => {
+  const url = await services.getCitiesWithInDistance(
+    req.query.from,
+    req.query.distance
+  );
+  res.status(httpStatus.ACCEPTED).send(url);
+});
+
+const getCitiesWithInDistanceResult = catchAsync(async (req, res) => {
+  await services.getCitiesWithInDistanceResult(req, res);
+});
+
 module.exports = {
   getCitiesByTag,
   getDistance,
+  getCitiesWithInDistance,
+  getCitiesWithInDistanceResult,
 };

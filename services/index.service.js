@@ -1,8 +1,10 @@
 const fs = require("fs");
 const path = require("path");
 const httpStatus = require("http-status");
+const { Worker, parentPort } = require("worker_threads");
 const { calculateDistance } = require("../utils/distance");
 const ApiError = require("../utils/ApiError");
+const config = require("../config/config");
 const address = JSON.parse(
   fs.readFileSync(path.join(__dirname, "..", "addresses.json"), "utf8")
 );
@@ -24,7 +26,6 @@ const getDistance = async (from, to) => {
   if (fromAddress.length === 0 || toAddress.length === 0) {
     throw new ApiError(httpStatus.NOT_FOUND, "Address not found.");
   }
-  console.log(toAddress[0]);
   const distance = calculateDistance(
     fromAddress[0].latitude,
     fromAddress[0].longitude,
@@ -38,8 +39,36 @@ const getDistance = async (from, to) => {
     to: { guid: toAddress[0].guid },
   };
 };
+let cities;
+const getCitiesWithInDistance = async function (from, distance) {
+  new Worker(path.join(__dirname, "..", "workers/distance.worker.js"), {
+    workerData: { from, distance },
+  }).on("message", (data) => {
+    cities = data;
+  });
+
+  return {
+    resultsUrl: `${config.appUrl}/area-result/2152f96f-50c7-4d76-9e18-f7033bd14428`,
+  };
+};
+
+const getCitiesWithInDistanceResult = async (req, res) => {
+  try {
+    const isDone =
+      fs.readFileSync(path.join(__dirname, "..", "queue.txt"), "utf8") == "1";
+    isDone
+      ? res.status(httpStatus.OK).send({ cities })
+      : res.status(httpStatus.ACCEPTED).send();
+    fs.writeFileSync(path.join(__dirname, "..", "queue.txt"), "");
+  } catch (error) {
+    // if data is stil being written to the file or haven't created yet
+    res.status(httpStatus.ACCEPTED).send();
+  }
+};
 
 module.exports = {
   getCitiesByTag,
   getDistance,
+  getCitiesWithInDistance,
+  getCitiesWithInDistanceResult,
 };

@@ -35,9 +35,9 @@ const server = app.listen(config.port, () => {
 });
 
 const unexpectedErrorHandler = (error) => {
+  console.log(error);
   logger.error(error);
 };
-
 process.on("uncaughtException", unexpectedErrorHandler);
 process.on("unhandledRejection", unexpectedErrorHandler);
 

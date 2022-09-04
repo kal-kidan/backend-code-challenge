@@ -60,7 +60,6 @@ const server = `${protocol}://${host}:${port}`;
     headers: { Authorization: "bearer dGhlc2VjcmV0dG9rZW4=" },
     timeout: 25,
   });
-
   // so far so good
   assert.strictEqual(result.status, 202);
   body = await result.json();
@@ -69,7 +68,6 @@ const server = `${protocol}://${host}:${port}`;
     body.resultsUrl,
     `${server}/area-result/2152f96f-50c7-4d76-9e18-f7033bd14428`
   );
-
   let status;
   do {
     result = await fetch(body.resultsUrl, {
