@@ -32,6 +32,7 @@ app.use(errorHandler);
 
 const server = app.listen(config.port, () => {
   logger.info(`Server listening to port ${config.port}`);
+  logger.info(`Please run index.js in separate cmd (npm run index)`);
 });
 
 const unexpectedErrorHandler = (error) => {

@@ -4,7 +4,8 @@
   "description": "GAN Integrity backend code challenge",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon server.js"
+    "start": "nodemon server.js",
+    "index": "node index.js"
   },
   "author": "GAN Integrity",
   "license": "ISC",
@@ -17,7 +18,9 @@
     "http-status": "^1.5.2",
     "joi": "^17.6.0",
     "node-fetch": "^2.6.1",
-    "nodemon": "^2.0.19",
     "winston": "^3.8.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.19"
   }
 }

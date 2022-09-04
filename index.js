@@ -1,7 +1,6 @@
 const assert = require("assert");
 const fs = require("fs-extra");
 const fetch = require("node-fetch");
-
 const protocol = "http";
 const host = "127.0.0.1";
 const port = "8080";

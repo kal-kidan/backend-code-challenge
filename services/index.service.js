@@ -1,7 +1,7 @@
 const fs = require("fs");
 const path = require("path");
 const httpStatus = require("http-status");
-const { Worker, parentPort } = require("worker_threads");
+const { Worker } = require("worker_threads");
 const { calculateDistance } = require("../utils/distance");
 const ApiError = require("../utils/ApiError");
 const config = require("../config/config");
